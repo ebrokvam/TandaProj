@@ -1,4 +1,5 @@
-import praw, prawcore, re, time
+import praw, prawcore
+from ascii_image import handle_image_conversion
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -45,12 +46,22 @@ def get_posts_urls(reddit, sub):
     
     return urls
 
+def generate_page(titles, urls):
+    page = '';
+    
+    for i in range(0, 10):
+        ascii_image = handle_image_conversion(urls[i])
+        if ascii_image == None:
+            ascii_image = "NO IMAGE"
+        page += (titles[i] + '\n\n' + ascii_image + '\n\n') 
+        
+    print(page)
+
 reddit = connect_to_reddit()
 
-sub = 'memes'
+sub = 'adviceanimals'
 
 titles = get_posts_names(reddit, sub)
 urls = get_posts_urls(reddit, sub)
-print(titles)
-print(urls)
+generate_page(titles, urls)
     

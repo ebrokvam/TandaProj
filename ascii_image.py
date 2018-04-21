@@ -40,20 +40,20 @@ def convert_image_to_ascii(image, new_width=100):
 
     return "\n".join(image_ascii)
 
-def handle_image_conversion(image_filepath):
+def handle_image_conversion(URL):
     image = None
     try:
-        image = Image.open(image_filepath)
+        response = requests.get(URL)
+        img = BytesIO(response.content)
+        image = Image.open(img)
     except Exception as e:
-        print("Unable to open image file {image_filepath}.".format(image_filepath=image_filepath))
+        print("Unable to open image file {URL}.".format(URL=URL))
         print(e)
         return
 
     image_ascii = convert_image_to_ascii(image)
-    print(image_ascii)
+    return image_ascii
 
-URL = 'https://s7d2.scene7.com/is/image/PetSmart/SV0401_CATEGORY_HERO-Dog-Dog-20160818?$SV0401$'
-response = requests.get(URL)
-img = BytesIO(response.content)
+URL = 'https://i.redd.it/8ftr9wt1u3t01.png'
 
-handle_image_conversion(img)
+handle_image_conversion(URL)
