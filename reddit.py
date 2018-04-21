@@ -46,7 +46,7 @@ def get_posts_urls(reddit, sub):
     
     return urls
 
-def generate_page(titles, urls):
+def generate_page():
     reddit = connect_to_reddit()
     sub = 'memes'
     titles = get_posts_names(reddit, sub)
@@ -61,6 +61,13 @@ def generate_page(titles, urls):
         page += (titles[i] + '\n\n' + ascii_image + '\n\n') 
         
     return page
+
+def write_to_file(text):
+    file = open('feed.txt', 'w')
+    file.write(text)
+    
+text = generate_page()
+write_to_file(text)
 
 
     
