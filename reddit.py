@@ -47,6 +47,11 @@ def get_posts_urls(reddit, sub):
     return urls
 
 def generate_page(titles, urls):
+    reddit = connect_to_reddit()
+    sub = 'memes'
+    titles = get_posts_names(reddit, sub)
+    urls = get_posts_urls(reddit, sub)
+    
     page = '';
     
     for i in range(0, 10):
@@ -55,13 +60,7 @@ def generate_page(titles, urls):
             ascii_image = "NO IMAGE"
         page += (titles[i] + '\n\n' + ascii_image + '\n\n') 
         
-    print(page)
+    return page
 
-reddit = connect_to_reddit()
 
-sub = 'adviceanimals'
-
-titles = get_posts_names(reddit, sub)
-urls = get_posts_urls(reddit, sub)
-generate_page(titles, urls)
     
